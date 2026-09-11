@@ -1,0 +1,60 @@
+# ==============================================================================
+# ROBOTS.TXT // VINAYAK BHARDWAJ — SYSTEMS ARCHITECT & EXECUTIVE AI ADVISOR
+# Canonical Domain: https://vinayakbhardwaj.com/
+# ==============================================================================
+
+# Global Directives for Standard Search Engines & Web Crawlers
+User-agent: *
+Allow: /
+Disallow: /404.html
+Disallow: /_backup*/
+Disallow: /scratch/
+
+# Explicit Directives for AI Engines, LLMs & Retrieval Systems
+# Ensuring zero friction for citation in Perplexity, ChatGPT Search, Claude, Gemini & Google AI Overviews
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+# Sitemap Index
+Sitemap: https://vinayakbhardwaj.com/sitemap.xml
+
+# Generative AI & LLM Machine-Readable Knowledge Dossiers
+# Canonical Index: https://vinayakbhardwaj.com/llms.txt
+# Comprehensive Technical Whitepaper: https://vinayakbhardwaj.com/llms-full.txt
+

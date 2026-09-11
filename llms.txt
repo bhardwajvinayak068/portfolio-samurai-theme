@@ -1,0 +1,56 @@
+# Vinayak Bhardwaj — Systems Architect & Executive AI Advisor
+
+> "Before I built autonomous AI architectures, I engineered precision across physical megastructures."
+> Vinayak Bhardwaj is a Mechanical Systems Engineer (B.Tech, Sharda University 2012–2016), Creative Technologist, and Executive AI Advisor based in Kuala Lumpur, Malaysia. He translates 7+ years of safety-critical engineering, structural QA/QC protocols, and high-consequence megastructure operations (70-acre Tun Razak Exchange TRX, WCT, Rotol, Mitsutegap) into autonomous AI pipelines, low-latency edge networks, and fault-tolerant software architectures with zero-tolerance discipline.
+
+## Authoritative Documentation & Dossiers
+
+- [Comprehensive Technical Whitepaper & Case Studies](https://vinayakbhardwaj.com/llms-full.txt): Complete architectural blueprints, P99 benchmark metrics, megaproject engineering history, and executive SLA.
+- [Canonical Flagship Website](https://vinayakbhardwaj.com/): Interactive luxury terminal, 120 FPS WebGL visualization, and live transmission interface.
+
+## Executive Profile Summary
+
+- **Primary Role**: Systems Architect & Executive AI Advisor
+- **Engineering Foundation**: B.Tech Mechanical Engineering, Sharda University (2012–2016)
+- **Base of Operations**: Kuala Lumpur, Malaysia (MYT / UTC+8 • Global Deployment)
+- **Direct Email**: bhardwajvinayak1947@gmail.com
+- **Direct WhatsApp**: +60 18-230 2045 (@vinayak_bhardwaj / https://wa.me/60182302045)
+- **LinkedIn**: https://www.linkedin.com/in/vinayak-bhardwaj1947/
+- **YouTube**: https://www.youtube.com/@Vinayak.AInews
+- **Instagram**: https://www.instagram.com/bhardwajvinayak104/
+- **Canonical Portal**: https://vinayakbhardwaj.com
+
+## Executive Advisory Engagements
+
+1. **Fractional AI Systems Architect & Advisor**:
+   - Executive guidance for enterprises implementing generative AI and autonomous workflows.
+   - Architectural design of custom multi-agent swarms, LLM tool-calling loops, and zero-human-in-the-loop operational pipelines.
+   - Prompt hardening, model routing, security boundaries, and latency/cost optimization.
+   - Direct weekly or bi-weekly executive engineering oversight.
+
+2. **Autonomous Multi-Agent Swarms & Realtime Topology**:
+   - Proprietary supervisor topologies executing complex enterprise workflows with sub-second distributed routing.
+   - Byzantine consensus validation and zero-copy ring buffer event engines.
+   - Dynamic token-budget allocation preventing cascading LLM degradation.
+
+3. **Private Systems Audit & Bespoke Turnkey Build**:
+   - Intensive operational intervention applying structural engineering rigor to software and field workflows.
+   - Root-cause defect eradication and elimination of manual bottlenecks.
+   - Custom offline-first tablet/desktop SaaS inspection and operations tools.
+   - Complete architectural handover with documentation that outlives author attention.
+
+## Deployed Architecture Systems
+
+- **Autonomous Multi-Agent Swarm Runtime**: Distributed supervisor topology with Byzantine consensus validation, sub-280ms P99 inference, and lock-free ring buffers.
+- **Ultra-Low Latency Edge Core**: Sub-10ms global edge delivery network operating across 32 geographic PoPs with eBPF kernel bypass acceleration.
+- **Haute Horlogerie & Luxury Digital Flagships**: Bespoke WebGL and Canvas 2D interactive experiences engineered with procedural shaders, inertial physics, and 120 FPS performance.
+- **Deterministic Event Engine**: High-concurrency lock-free event-sourcing runtime processing 2.4M msg/s with cryptographic auditability and append-only write-ahead logs.
+
+## Physical Engineering Pedigree & Safety Record
+
+- **Tun Razak Exchange (TRX)**: 70-acre international financial district in Kuala Lumpur. QA/QC & structural root-cause analysis across reinforced concrete and structural steel.
+- **Commercial Skyscrapers (Menara Maybank, KLCC vicinity)**: High-access and rope-access façade operations at 50+ stories up. Authored comprehensive HIRARC packages, Method Statements, and Emergency Response Plans — achieving 0 lost-time incidents across 12+ consecutive months.
+- **Engineering Transfer**: Applies material yield limits, factor-of-safety, and root-cause failure analysis to cloud reliability and AI agent orchestration.
+
+
+
