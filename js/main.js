@@ -16,11 +16,57 @@
         }
     }
 
-    // 1. SMOOTH SCROLL (LENIS)
+    // 1. SMOOTH SCROLL (LENIS & MOBILE NATIVE MOMENTUM)
     let lenisInstance = null;
     function initLenis() {
+        function setupAnchorSmoothScroll() {
+            document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+                anchor.addEventListener('click', function (e) {
+                    const targetId = this.getAttribute('href');
+                    if (targetId && targetId !== '#') {
+                        const targetElem = document.querySelector(targetId);
+                        if (targetElem) {
+                            e.preventDefault();
+                            if (lenisInstance) {
+                                lenisInstance.scrollTo(targetElem, { offset: -80 });
+                            } else {
+                                const targetY = targetElem.getBoundingClientRect().top + window.scrollY - 80;
+                                window.scrollTo({ top: targetY, behavior: 'smooth' });
+                            }
+                        }
+                    }
+                });
+            });
+        }
+
         // Respect user's accessibility choice for reduced motion
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            setupAnchorSmoothScroll();
+            return;
+        }
+
+        // On mobile / touch devices, disable Lenis to ensure 100% native momentum scrolling with zero bounce-back
+        const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (window.innerWidth <= 900);
+        if (isTouchDevice) {
+            setupAnchorSmoothScroll();
+
+            // Native scroll velocity skew for kinetic ribbons on mobile
+            let lastScrollY = window.scrollY;
+            let skewResetTimer = null;
+            window.addEventListener('scroll', () => {
+                const currentY = window.scrollY;
+                const delta = currentY - lastScrollY;
+                lastScrollY = currentY;
+                const clamped = Math.max(-20, Math.min(20, delta * 0.8));
+                const skewAngle = clamped * 0.22;
+                document.documentElement.style.setProperty('--scroll-skew', `${skewAngle.toFixed(2)}deg`);
+
+                clearTimeout(skewResetTimer);
+                skewResetTimer = setTimeout(() => {
+                    document.documentElement.style.setProperty('--scroll-skew', '0deg');
+                }, 120);
+            }, { passive: true });
+
             return;
         }
 
@@ -55,19 +101,7 @@
                 }, 120);
             });
 
-            // Handle anchor clicks smoothly
-            document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-                anchor.addEventListener('click', function (e) {
-                    const targetId = this.getAttribute('href');
-                    if (targetId && targetId !== '#') {
-                        const targetElem = document.querySelector(targetId);
-                        if (targetElem) {
-                            e.preventDefault();
-                            lenisInstance.scrollTo(targetElem, { offset: -80 });
-                        }
-                    }
-                });
-            });
+            setupAnchorSmoothScroll();
         }
     }
 
@@ -1144,8 +1178,8 @@
                 const target = document.getElementById(phaseId);
                 triggerHaptic(8);
                 if (target) {
-                    if (lenis) {
-                        lenis.scrollTo(target, { offset: -120, duration: 1.2 });
+                    if (lenisInstance) {
+                        lenisInstance.scrollTo(target, { offset: -120, duration: 1.2 });
                     } else {
                         const y = target.getBoundingClientRect().top + window.scrollY - 120;
                         window.scrollTo({ top: y, behavior: 'smooth' });
@@ -1165,8 +1199,15 @@
                         const isActive = p.getAttribute('data-phase') === id;
                         p.classList.toggle('active', isActive);
                         p.setAttribute('aria-current', isActive ? 'step' : 'false');
-                        if (isActive) {
-                            p.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                        if (isActive && scrubber) {
+                            // Smoothly scroll the horizontal track internally WITHOUT touching window vertical scroll!
+                            const pLeft = p.offsetLeft;
+                            const pWidth = p.offsetWidth;
+                            const sWidth = scrubber.clientWidth;
+                            scrubber.scrollTo({
+                                left: pLeft - (sWidth / 2) + (pWidth / 2),
+                                behavior: 'smooth'
+                            });
                         }
                     });
                 }
@@ -1883,10 +1924,11 @@
                 if (targetEl) {
                     e.preventDefault();
                     if (hud.classList.contains('active')) closeHUD();
-                    if (lenis) {
-                        lenis.scrollTo(targetEl, { duration: 1.2 });
+                    if (lenisInstance) {
+                        lenisInstance.scrollTo(targetEl, { offset: -80, duration: 1.2 });
                     } else {
-                        targetEl.scrollIntoView({ behavior: 'smooth' });
+                        const targetY = targetEl.getBoundingClientRect().top + window.scrollY - 80;
+                        window.scrollTo({ top: targetY, behavior: 'smooth' });
                     }
                     if (window.sovereignAudio) {
                         window.sovereignAudio.playHapticChime();
