@@ -39,69 +39,43 @@
             });
         }
 
+        setupAnchorSmoothScroll();
+
         // Respect user's accessibility choice for reduced motion
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-            setupAnchorSmoothScroll();
             return;
         }
 
-        // On mobile / touch devices, disable Lenis to ensure 100% native momentum scrolling with zero bounce-back
-        const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (window.innerWidth <= 900);
-        if (isTouchDevice) {
-            setupAnchorSmoothScroll();
-
-            // Native scroll velocity skew for kinetic ribbons on mobile
-            let lastScrollY = window.scrollY;
-            let skewResetTimer = null;
-            window.addEventListener('scroll', () => {
-                const currentY = window.scrollY;
-                const delta = currentY - lastScrollY;
-                lastScrollY = currentY;
-                const clamped = Math.max(-20, Math.min(20, delta * 0.8));
-                const skewAngle = clamped * 0.22;
-                document.documentElement.style.setProperty('--scroll-skew', `${skewAngle.toFixed(2)}deg`);
-
-                clearTimeout(skewResetTimer);
-                skewResetTimer = setTimeout(() => {
-                    document.documentElement.style.setProperty('--scroll-skew', '0deg');
-                }, 120);
-            }, { passive: true });
-
-            return;
-        }
+        const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 
         if (typeof Lenis !== 'undefined') {
             lenisInstance = new Lenis({
-                duration: 1.2,
+                duration: 1.0,
                 easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-                direction: 'vertical',
-                gestureDirection: 'vertical',
-                smooth: true,
-                smoothTouch: false,
-                touchMultiplier: 1.5
+                smoothWheel: true,
+                syncTouch: false, // 100% native hardware momentum for touch
+                touchMultiplier: 1.0,
+                autoRaf: true
             });
 
-            function raf(time) {
-                lenisInstance.raf(time);
-                requestAnimationFrame(raf);
+            // On desktop only: subtle skew on kinetic ribbon (only if not touch)
+            if (!isTouchDevice) {
+                let skewResetTimer = null;
+                const track = document.querySelector('.kinetic-track');
+                if (track) {
+                    lenisInstance.on('scroll', (e) => {
+                        const vel = e.velocity || 0;
+                        const clamped = Math.max(-12, Math.min(12, vel));
+                        const skewAngle = clamped * 0.18;
+                        track.style.transform = `skewX(${skewAngle.toFixed(2)}deg)`;
+
+                        clearTimeout(skewResetTimer);
+                        skewResetTimer = setTimeout(() => {
+                            track.style.transform = 'skewX(0deg)';
+                        }, 100);
+                    });
+                }
             }
-            requestAnimationFrame(raf);
-
-            // Reactive Scroll-Velocity Skew on Kinetic Ribbons
-            let skewResetTimer = null;
-            lenisInstance.on('scroll', (e) => {
-                const vel = e.velocity || 0;
-                const clamped = Math.max(-20, Math.min(20, vel));
-                const skewAngle = clamped * 0.22;
-                document.documentElement.style.setProperty('--scroll-skew', `${skewAngle.toFixed(2)}deg`);
-
-                clearTimeout(skewResetTimer);
-                skewResetTimer = setTimeout(() => {
-                    document.documentElement.style.setProperty('--scroll-skew', '0deg');
-                }, 120);
-            });
-
-            setupAnchorSmoothScroll();
         }
     }
 
@@ -230,18 +204,25 @@
         const scrollTopBtn = document.getElementById('scroll-top-btn');
         if (!progressBar) return;
 
+        let isTicking = false;
         window.addEventListener('scroll', () => {
-            const scrollTop = window.scrollY;
-            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-            progressBar.style.height = `${Math.min(100, Math.max(0, progress))}%`;
+            if (!isTicking) {
+                requestAnimationFrame(() => {
+                    const scrollTop = window.scrollY;
+                    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                    const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+                    progressBar.style.height = `${Math.min(100, Math.max(0, progress))}%`;
 
-            if (scrollTopBtn) {
-                if (scrollTop > 400) {
-                    scrollTopBtn.classList.add('visible');
-                } else {
-                    scrollTopBtn.classList.remove('visible');
-                }
+                    if (scrollTopBtn) {
+                        if (scrollTop > 400) {
+                            scrollTopBtn.classList.add('visible');
+                        } else {
+                            scrollTopBtn.classList.remove('visible');
+                        }
+                    }
+                    isTicking = false;
+                });
+                isTicking = true;
             }
         }, { passive: true });
 
@@ -1676,8 +1657,10 @@
             this.hairlines = hairlines;
             this.particles = [];
             const colors = ['#F5D77F', '#E2C08D', '#FBF2DE', '#FFE494'];
+            const isMobile = window.innerWidth <= 768;
+            const stride = isMobile ? 2 : 1;
 
-            for (let i = 0; i < targets.length; i++) {
+            for (let i = 0; i < targets.length; i += stride) {
                 const t = targets[i];
                 this.particles.push({
                     x: t.x + (Math.random() - 0.5) * 4,
@@ -1686,7 +1669,7 @@
                     vy: 0,
                     targetX: t.x,
                     targetY: t.y,
-                    baseSize: 0.85 + Math.random() * 0.75,
+                    baseSize: (isMobile ? 1.05 : 0.85) + Math.random() * 0.75,
                     alpha: 0.45 + Math.random() * 0.45,
                     twinkleSpeed: 0.03 + Math.random() * 0.045,
                     twinklePhase: Math.random() * Math.PI * 2,
