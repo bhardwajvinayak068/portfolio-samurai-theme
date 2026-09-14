@@ -34,7 +34,7 @@
         }
 
         initElements() {
-            const toggle = document.getElementById('sound-pill-btn');
+            const toggles = document.querySelectorAll('.sound-pill-btn');
             const beacon = document.getElementById('audio-beacon-tooltip');
 
             if (beacon) {
@@ -43,13 +43,13 @@
                 }, 5200);
             }
 
-            if (toggle) {
+            toggles.forEach(toggle => {
                 toggle.addEventListener('click', (e) => {
                     e.preventDefault();
                     if (beacon) beacon.classList.add('fade-out');
                     this.toggleMute();
                 });
-            }
+            });
 
             // Global shortcut [S] to toggle sound
             window.addEventListener('keydown', (e) => {
@@ -62,7 +62,7 @@
             // Bind sound to luxury buttons and interactive cards
             document.addEventListener('click', (e) => {
                 const target = e.target.closest('button, a, .system-card, .timeline-card, .scrubber-pill');
-                if (target && !target.closest('#sound-pill-btn')) {
+                if (target && !target.closest('.sound-pill-btn')) {
                     if (!this.isMuted) {
                         this.playHapticChime();
                     }
@@ -86,21 +86,22 @@
                 try { navigator.vibrate(12); } catch (e) {}
             }
 
-            const toggle = document.getElementById('sound-pill-btn');
-            const label = document.getElementById('sound-pill-text');
+            const toggles = document.querySelectorAll('.sound-pill-btn');
+            const labels = document.querySelectorAll('.sound-pill-text, .mobile-sound-text');
             const beacon = document.getElementById('audio-beacon-tooltip');
 
             if (beacon) {
                 beacon.classList.add('fade-out');
             }
 
-            if (toggle) {
+            toggles.forEach(toggle => {
                 toggle.setAttribute('aria-pressed', (!this.isMuted).toString());
                 toggle.classList.toggle('active', !this.isMuted);
-            }
-            if (label) {
+            });
+
+            labels.forEach(label => {
                 label.textContent = this.isMuted ? 'SOUND: OFF' : 'SOUND: ACTIVE';
-            }
+            });
 
             if (!this.isMuted) {
                 this.playActivationTone();

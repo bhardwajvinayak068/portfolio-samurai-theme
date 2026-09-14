@@ -246,11 +246,21 @@
                     <li><a href="#contact" class="nav-link">CONTACT</a></li>
                 </ul>
 
-                <!-- Mobile Navigation Toggle Button -->
-                <button id="mobile-menu-toggle" class="mobile-menu-toggle" aria-label="Toggle Navigation Menu" aria-expanded="false" aria-controls="mobile-menu-overlay">
-                    <span class="hamburger-line line-1"></span>
-                    <span class="hamburger-line line-2"></span>
-                </button>
+                <!-- Mobile Navigation Actions (Audio Toggle + Menu Trigger) -->
+                <div class="nav-mobile-actions">
+                    <button id="mobile-sound-btn" class="sound-pill-btn mobile-sound-toggle" aria-label="Toggle synthesized audio haptics" aria-pressed="false" title="Toggle audio haptics">
+                        <span class="sound-wave-icon" aria-hidden="true">
+                            <span class="sound-bar bar-1"></span>
+                            <span class="sound-bar bar-2"></span>
+                            <span class="sound-bar bar-3"></span>
+                        </span>
+                        <span class="mobile-sound-text">SOUND: OFF</span>
+                    </button>
+                    <button id="mobile-menu-toggle" class="mobile-menu-toggle" aria-label="Toggle Navigation Menu" aria-expanded="false" aria-controls="mobile-menu-overlay">
+                        <span class="hamburger-line line-1"></span>
+                        <span class="hamburger-line line-2"></span>
+                    </button>
+                </div>
             </nav>
         </div>
     </header>
@@ -294,6 +304,18 @@
                     <span class="mobile-nav-label">CONTACT</span>
                 </a>
             </nav>
+
+            <div class="mobile-menu-audio-row">
+                <span class="mobile-menu-audio-label">SPATIAL AUDIO // HAPTICS</span>
+                <button id="drawer-sound-btn" class="sound-pill-btn mobile-drawer-sound-btn" aria-label="Toggle synthesized audio haptics" aria-pressed="false">
+                    <span class="sound-wave-icon" aria-hidden="true">
+                        <span class="sound-bar bar-1"></span>
+                        <span class="sound-bar bar-2"></span>
+                        <span class="sound-bar bar-3"></span>
+                    </span>
+                    <span class="mobile-sound-text">SOUND: OFF</span>
+                </button>
+            </div>
 
             <div class="mobile-menu-footer">
                 <div class="mobile-meta-text">CREATIVE TECHNOLOGIST &amp; SYSTEMS ARCHITECT</div>

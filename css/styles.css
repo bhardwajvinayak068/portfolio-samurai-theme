@@ -318,6 +318,16 @@ img {
     gap: 1.25rem;
 }
 
+.nav-mobile-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+}
+
+.mobile-sound-toggle {
+    display: none;
+}
+
 /* Status Indicator Pill */
 .status-pill {
     display: inline-flex;
@@ -1924,6 +1934,45 @@ button:active,
     color: var(--gold-primary);
 }
 
+.mobile-menu-audio-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 0;
+    margin: 0.5rem 0 1.25rem;
+    border-top: 1px solid var(--border-hairline);
+    border-bottom: 1px solid var(--border-hairline);
+}
+
+.mobile-menu-audio-label {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    color: var(--gold-amber);
+}
+
+.mobile-drawer-sound-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.45rem 0.95rem;
+    background: rgba(18, 18, 26, 0.9);
+    border: 1px solid var(--border-hairline);
+    border-radius: var(--radius-pill);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.mobile-drawer-sound-btn:hover,
+.mobile-drawer-sound-btn.active {
+    border-color: var(--gold-primary);
+    color: var(--gold-light);
+    box-shadow: 0 0 15px rgba(226, 192, 141, 0.25);
+}
+
 .mobile-menu-footer {
     padding-top: 1.5rem;
     border-top: 1px solid var(--border-hairline);
@@ -2058,7 +2107,7 @@ button:active,
 
 @media (max-width: 768px) {
     .nav-pill {
-        padding: 0 1.25rem;
+        padding: 0 1rem;
         height: 56px;
         justify-content: space-between;
     }
@@ -2068,32 +2117,283 @@ button:active,
     .nav-links {
         display: none; /* Replaced by bespoke luxury full-screen mobile menu */
     }
+    .mobile-sound-toggle {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        min-height: 38px;
+        padding: 0.35rem 0.75rem;
+        background: rgba(14, 14, 20, 0.9);
+        border: 1px solid var(--border-hairline);
+        border-radius: var(--radius-pill);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        color: var(--text-secondary);
+        font-family: var(--font-mono);
+        font-size: 0.65rem;
+        letter-spacing: 0.08em;
+        cursor: pointer;
+        transition: var(--transition-fast);
+    }
+    .mobile-sound-toggle:hover,
+    .mobile-sound-toggle.active {
+        border-color: var(--gold-primary);
+        color: var(--gold-light);
+        box-shadow: 0 0 12px rgba(226, 192, 141, 0.25);
+    }
     .mobile-menu-toggle {
         display: flex;
     }
     .hero-section {
-        padding-top: 6rem;
+        padding-top: 5.5rem;
+        padding-bottom: 3.5rem;
+        min-height: auto;
     }
     .hero-title {
-        font-size: 2.8rem;
+        font-size: clamp(2.2rem, 7.5vw, 2.8rem);
     }
     .hero-actions {
         flex-direction: column;
         width: 100%;
+        gap: 0.85rem;
     }
     .btn {
         width: 100%;
     }
+    .hero-proof-strip {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.65rem;
+        padding-top: 1.5rem;
+        max-width: 100%;
+    }
+    .proof-val {
+        font-size: clamp(1.15rem, 4vw, 1.55rem);
+    }
+    .proof-lbl {
+        font-size: clamp(0.55rem, 2.1vw, 0.68rem);
+        white-space: nowrap;
+    }
+    .hero-portrait-stage {
+        min-height: 380px;
+        margin-top: 1.5rem;
+    }
+    .portrait-wrapper {
+        max-width: 320px;
+    }
+
+    /* Section Paddings Compressed on Mobile */
+    .odyssey-section,
+    .systems-section,
+    .manifesto-section,
+    .benchmark-section,
+    .impact-section,
+    .endorsements-section {
+        padding: 3.75rem 0;
+    }
+    .contact-section {
+        padding: 3.75rem 0 5rem 0;
+    }
+
+    /* Quote Banner */
+    .manifesto-quote-banner {
+        padding: 1.75rem 1.25rem;
+        margin-bottom: 2.5rem;
+    }
+    .manifesto-quote-text {
+        font-size: clamp(1.05rem, 4vw, 1.35rem);
+    }
+
+    /* System & Manifesto Cards */
     .system-card, .manifesto-card, .contact-form-panel {
-        padding: 2rem 1.5rem;
+        padding: 1.75rem 1.25rem;
     }
     .system-drawer {
-        padding: 2rem 1.5rem;
+        padding: 1.75rem 1.25rem;
     }
+
+    /* Benchmark Section Mobile Overhaul */
+    .terminal-body {
+        padding: 1.25rem 0.85rem;
+        gap: 1.5rem;
+    }
+    .telemetry-grid {
+        gap: 0.65rem;
+        margin-bottom: 1.25rem;
+    }
+    .telemetry-box {
+        padding: 0.85rem 0.75rem;
+    }
+    .telemetry-lbl {
+        font-size: 0.65rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .telemetry-val {
+        font-size: clamp(1rem, 3.8vw, 1.35rem);
+        word-break: break-word;
+    }
+    .waveform-monitor-wrap {
+        width: 100%;
+        overflow: hidden;
+        margin-bottom: 1.25rem;
+    }
+    .waveform-canvas {
+        width: 100% !important;
+        max-width: 100%;
+        height: auto;
+    }
+    .benchmark-actions {
+        flex-direction: column;
+        width: 100%;
+        align-items: stretch;
+        gap: 0.75rem;
+    }
+    .node-select-wrap,
+    .node-select-wrap select,
+    .btn-surge {
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .node-select-wrap select {
+        text-align-last: center;
+        font-size: 0.78rem;
+        padding: 0.75rem 0.5rem;
+    }
+    .btn-surge {
+        justify-content: center;
+        font-size: 0.78rem;
+        padding: 0.85rem 1rem;
+    }
+    .canvas-header-bar {
+        font-size: 0.62rem;
+        padding: 0.5rem 0.75rem;
+        justify-content: center;
+        gap: 0.35rem;
+        text-align: center;
+    }
+    .terminal-log-panel {
+        padding: 1rem 0.85rem;
+        height: 220px;
+        font-size: 0.72rem;
+    }
+
+    /* Direct Contact Channels Mobile Stacking */
+    .direct-channels {
+        margin-bottom: 2rem;
+    }
+    .direct-channel-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.35rem;
+        padding: 0.85rem 0;
+    }
+    .channel-lbl {
+        font-size: 0.68rem;
+        letter-spacing: 0.08em;
+    }
+    .channel-val {
+        text-align: left;
+        word-break: break-word;
+        font-size: 0.88rem;
+        line-height: 1.4;
+        max-width: 100%;
+    }
+    .contact-info-col p {
+        font-size: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    /* Endorsement Cards */
+    .endorsement-card {
+        padding: 1.75rem 1.25rem;
+    }
+    .endorsement-text {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+    }
+
+    /* Impact Cards */
+    .impact-grid {
+        gap: 0.85rem;
+    }
+    .impact-card {
+        padding: 1.5rem 0.85rem;
+    }
+    .impact-number {
+        font-size: clamp(1.8rem, 6.5vw, 2.6rem);
+    }
+    .impact-label {
+        font-size: 0.68rem;
+    }
+
+    /* Timeline Adjustments */
+    .timeline-step {
+        padding-left: 44px;
+        margin-bottom: 2.5rem;
+    }
+    .timeline-stream::before {
+        left: 17px;
+    }
+    .timeline-node {
+        left: 8px;
+    }
+    .timeline-card {
+        padding: 1.5rem 1.15rem;
+    }
+    .timeline-title {
+        font-size: 1.25rem;
+    }
+
     .footer-top, .footer-bottom {
         flex-direction: column;
         gap: 1.5rem;
         text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 1rem;
+    }
+    .nav-pill {
+        padding: 0 0.85rem;
+    }
+    .mobile-sound-text {
+        display: none;
+    }
+    .mobile-sound-toggle {
+        padding: 0.4rem 0.6rem;
+        min-width: 38px;
+        justify-content: center;
+    }
+    .hero-title {
+        font-size: 2.2rem;
+    }
+    .terminal-body {
+        padding: 1rem 0.65rem;
+    }
+    .telemetry-grid {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
+    .telemetry-box {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.75rem 0.85rem;
+    }
+    .telemetry-lbl {
+        margin-bottom: 0;
+    }
+    .telemetry-val {
+        font-size: 1.1rem;
+    }
+    .impact-grid {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
     }
 }
 
@@ -2986,11 +3286,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 
 @media (max-width: 768px) {
     .audio-pill-wrap {
-        bottom: 20px;
-        left: 20px;
-    }
-    .sound-pill-text {
-        font-size: 0.65rem;
+        display: none !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+        opacity: 0 !important;
     }
 }
 
